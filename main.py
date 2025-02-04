@@ -1,3 +1,5 @@
+import tkinter as tk
+
 def primes_in_range(start, end):
     limit = end
     is_prime = [True] * (limit + 1)
@@ -16,11 +18,28 @@ def primes_in_range(start, end):
             primes.append(num)
     return primes
 
-start = int(input("Lower limit of range: "))
-end = int(input("Upper Limit of range: "))
+def calculate_primes():
+    start = int(start_entry.get())
+    end = int(end_entry.get())
+    primes = primes_in_range(start, end)
+    result_label.config(text=f"Total prime numbers: {len(primes)}\nFirst 10 primes: {primes[:10]}")
 
-primes = primes_in_range(start, end)
+root = tk.Tk()
+root.title("Prime Number Calculator")
 
-print("Total number of prime numbers:", len(primes))
-print("First 10 prime numbers:", primes[:10])
+tk.Label(root, text="Lower Limit:").grid(row=0, column=0, padx=5, pady=5)
+start_entry = tk.Entry(root)
+start_entry.grid(row=0, column=1, padx=5, pady=5)
+
+tk.Label(root, text="Upper Limit:").grid(row=1, column=0, padx=5, pady=5)
+end_entry = tk.Entry(root)
+end_entry.grid(row=1, column=1, padx=5, pady=5)
+
+calculate_button = tk.Button(root, text="Calculate", command=calculate_primes)
+calculate_button.grid(row=2, column=0, columnspan=2, padx=5, pady=10)
+
+result_label = tk.Label(root, text="Results will be displayed here", justify="left")
+result_label.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
+
+root.mainloop()
 
